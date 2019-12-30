@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwl.project.admin.dao.SysPermissionMapper">
+
+
+    <!--<select id="selectSysPermissionByUserId" fetchSize="1000" resultType="com.lwl.project.admin.pojo.entity.SysPermission">-->
+        <!--select p.*-->
+        <!--from tb_user u-->
+        <!--left join tb_user_role ur on ur.user_id=u.id-->
+        <!--left join tb_role_permission rp on rp.role_id=ur.role_id-->
+        <!--left join tb_permission p on p.id=rp.permission_id-->
+        <!--where-->
+        <!--u.id = #{userId}-->
+    <!--</select>-->
+
+</mapper>
