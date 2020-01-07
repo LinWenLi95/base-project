@@ -24,14 +24,12 @@ public class ResultCode {
 
     public static final Map<Integer, String> ERROR_MSG_MAP = new HashMap<Integer, String>() {{
         put(OK, "请求成功");
-
         put(BAD_REQUEST, "坏请求（如，参数错误）");
         put(UNAUTHORIZED, "未授权");
         put(FORBIDDEN, "被禁止访问");
         put(NOT_FOUND, "请求的资源不存在");
         put(METHOD_NOT_ALLOWED, "请求方法对指定的资源不适用");
-
-        put(INTERNAL_SERVER_ERROR, "内部错误");
+        put(INTERNAL_SERVER_ERROR, "服务器内部错误");
         put(SERVICE_UNAVAILABLE, " 服务当前无法处理请求");
     }};
 
