@@ -9,13 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lwl
@@ -36,23 +33,21 @@ public class SysMenuController extends BaseController<SysMenu> {
 
     @ApiOperation(value = "获取指定id的菜单实体")
     @GetMapping("/query/{id}")
-    public ResponseEntity<Result<SysMenu>> queryOne2(@PathVariable("id") Integer id) {
-        if (id == 1) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Result.failure());
-        }
+    public ResponseEntity<Result<SysMenu>> queryOne(@PathVariable("id") Integer id) {
         SysMenu sysMenu = sysMenuService.selectById(id);
-        return ResponseEntity.ok(Result.success(sysMenu));
+        return Result.success(sysMenu);
     }
 
-
+    @ApiOperation(value = "获取菜单树列表")
     @GetMapping("/menuTrees")
-    public Result<List<MenuTree>> getMenusTree() {
+    public ResponseEntity<Result<List<MenuTree>>> getMenusTree() {
         List<MenuTree> menuTree = sysMenuService.getMenuTrees();
         return Result.success(menuTree);
     }
 
+    @ApiOperation(value = "更新菜单节点")
     @PutMapping("/menuTrees")
-    public Result putMenusTree(@RequestBody SysMenu sysMenu) {
+    public ResponseEntity<Result<Object>> putMenusTree(@RequestBody SysMenu sysMenu) {
         return this.update(sysMenu);
     }
 }

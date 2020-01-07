@@ -5,6 +5,8 @@ import com.lwl.project.admin.annotation.ApiLog;
 import com.lwl.project.admin.pojo.dto.Result;
 import com.lwl.project.admin.service.BaseService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +19,10 @@ public abstract class BaseController<T> {
     @ApiLog
     @ApiOperation(value = "查询多条数据")
     @GetMapping("/")
-    public Result<Page<T>> queryList(Integer pageSize,Integer currentPage) {
-        pageSize = 100;
-        currentPage = 1;
+    public ResponseEntity<Result<Page<T>>> queryList(@ApiParam(value = "单页数据条数", example = "10")
+                                                      @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+                                                     @ApiParam(value = "页码", example = "1")
+                                                      @RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
         int total = getBaseService().selectCountByMap(null);
         Page<T> page = new Page<>(currentPage, pageSize, total);
         if (total > 0) {
@@ -32,10 +35,7 @@ public abstract class BaseController<T> {
     @ApiLog
     @ApiOperation(value = "查询单条数据")
     @GetMapping("/{id}")
-    public Result<T> queryOne(@PathVariable Integer id) {
-        if (id == null) {
-            return Result.failure();
-        }
+    public ResponseEntity<Result<T>> queryOne(@PathVariable("id") Integer id) {
         T t = getBaseService().selectById(id);
         return Result.success(t);
     }
@@ -43,33 +43,35 @@ public abstract class BaseController<T> {
     @ApiLog
     @ApiOperation(value = "插入数据")
     @PostMapping("/")
-    public Result add(@RequestBody T obj) {
+    public ResponseEntity<Result<Object>> add(@RequestBody T obj) {
         Integer result = 0;
         if (obj != null) {
             result = getBaseService().add(obj);
         }
-        return result == 1 ? Result.success() : Result.failure("新增失败");
+        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
     }
 
     @ApiLog
     @ApiOperation(value = "更新数据")
     @PutMapping("/")
-    public Result update(@RequestBody T obj) {
+    public ResponseEntity<Result<Object>> update(@RequestBody T obj) {
         Integer result = 0;
         if (obj != null) {
             result = getBaseService().update(obj);
         }
-        return result == 1 ? Result.success() : Result.failure("更新失败");
+        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
     }
 
     @ApiLog
     @ApiOperation(value = "删除数据")
     @DeleteMapping("/{id}")
-    public Result del(@PathVariable Integer id) {
+    public ResponseEntity<Result<Object>> del(@PathVariable("id") Integer id) {
         Integer result = 0;
         if (id != null) {
             result = getBaseService().delById(id);
         }
-        return result == 1 ? Result.success() : Result.failure("删除失败");
+        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
     }
+
+
 }

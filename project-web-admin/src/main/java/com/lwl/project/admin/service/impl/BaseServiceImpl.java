@@ -43,8 +43,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     @Override
     public Integer selectCountByMap(Map<String, Object> paramMap) {
         // TODO 待处理
-//        return getMapper().selectCount(null);
-        return 100;
+        return getMapper().selectCount(null);
     }
 
     @Override
