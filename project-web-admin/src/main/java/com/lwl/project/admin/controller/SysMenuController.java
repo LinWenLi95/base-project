@@ -36,7 +36,7 @@ public class SysMenuController extends BaseController<SysMenu> {
     @GetMapping("/query/{id}")
     public ResponseEntity<Result<SysMenu>> queryOne(@PathVariable("id") Integer id) {
         SysMenu sysMenu = sysMenuService.selectById(id);
-        return Result.success(sysMenu);
+        return Result.success(sysMenu) ;
     }
 
     @ApiOperation(value = "获取菜单树列表")
