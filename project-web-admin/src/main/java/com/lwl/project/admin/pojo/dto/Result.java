@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
 /**
- * @author admin
+ * @author linwenli
+ * @date 2020-01-08 10:54
  */
 @Data
 @ApiModel(description = "操作结果实体，含操作结果码、操作结果消息、返回数据。")
@@ -23,48 +24,48 @@ public class Result<T> {
 
     public Result() {}
 
-    public Result(Integer code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
+    public Result(ResultCode resultCode, String msg, T data) {
+        this.code = resultCode.getCode();
+        this.msg = StringUtils.isEmpty(msg) ? resultCode.getReasonPhrase() : msg;
         this.data = data;
     }
 
-    public static <T> Result<T> getInstance(Integer code, String msg, T data) {
-        return new Result<>(code, msg, data);
+    /*获取Result实例*/
+    public static <T> Result<T> getInstance(ResultCode resultCode, String msg, T data) {
+        return new Result<>(resultCode, msg, data);
     }
 
-    public static <T> Result<T> getInstance(Integer code, String msg, Class<T> t) {
-        return new Result<>(code, msg, null);
+    public static <T> Result<T> getInstance(ResultCode resultCode, String msg, Class<T> t) {
+        return new Result<>(resultCode, msg,null);
     }
 
-    /**
-     * 基础版请求成功方法
-     */
-    public static <T> ResponseEntity<Result<T>> success(Integer code, String msg, T data) {
-        // TODO 如果没传自定义code则填入默认code
-        if (code == null) {
-            code = 200;
+    /*请求成功*/
+    public static <T> ResponseEntity<Result<T>> success(ResultCode resultCode, String msg, T data) {
+        if (resultCode == null) {
+            resultCode = ResultCode.OK;
         }
-        // TODO 如果没传自定义消息则根据code填入默认消息
-        if (StringUtils.isEmpty(msg)) {
-            msg = "200对应的消息";
-        }
-        return ResponseEntity.ok(Result.getInstance(code, msg, data));
+        return ResponseEntity.ok(Result.getInstance(resultCode, msg, data));
     }
 
-    public static <T> ResponseEntity<Result<T>> success(Integer code, String msg) {
-        return success(code, msg, null);
+    public static <T> ResponseEntity<Result<T>> success(ResultCode resultCode) {
+        return success(resultCode, null, null);
     }
 
     public static <T> ResponseEntity<Result<T>> success(T data) {
-        return success(null, null, data);
+        return success(ResultCode.OK, null, data);
     }
 
     public static <T> ResponseEntity<Result<T>> success() {
-        return success(null);
+        return success(ResultCode.OK);
     }
 
-    public static <T> ResponseEntity<Result<T>> failure(HttpStatus httpStatus, Integer code, String msg, Class<T> t) {
-        return ResponseEntity.status(httpStatus).body(Result.getInstance(code, msg, t));
+    /*请求失败*/
+    /**接口请求失败时并不会返回data，为了编译器不显示黄色代码警告，加上了反射类型参数，并在接口不返回指定实体时将返回类型指定为Object*/
+    public static <T> ResponseEntity<Result<T>> failure(HttpStatus httpStatus, ResultCode resultCode, String msg, Class<T> t) {
+        return ResponseEntity.status(httpStatus).body(Result.getInstance(resultCode, msg, t));
+    }
+
+    public static <T> ResponseEntity<Result<T>> failure(HttpStatus httpStatus, ResultCode resultCode, Class<T> t) {
+        return ResponseEntity.status(httpStatus).body(Result.getInstance(resultCode, null, t));
     }
 }

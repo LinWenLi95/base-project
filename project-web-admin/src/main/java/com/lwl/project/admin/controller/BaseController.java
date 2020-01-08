@@ -3,6 +3,7 @@ package com.lwl.project.admin.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwl.project.admin.annotation.ApiLog;
 import com.lwl.project.admin.pojo.dto.Result;
+import com.lwl.project.admin.pojo.dto.ResultCode;
 import com.lwl.project.admin.service.BaseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,9 +21,9 @@ public abstract class BaseController<T> {
     @ApiOperation(value = "查询多条数据")
     @GetMapping("/")
     public ResponseEntity<Result<Page<T>>> queryList(@ApiParam(value = "单页数据条数", example = "10")
-                                                      @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+                                                     @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                                      @ApiParam(value = "页码", example = "1")
-                                                      @RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
+                                                     @RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
         int total = getBaseService().selectCountByMap(null);
         Page<T> page = new Page<>(currentPage, pageSize, total);
         if (total > 0) {
@@ -48,7 +49,7 @@ public abstract class BaseController<T> {
         if (obj != null) {
             result = getBaseService().add(obj);
         }
-        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
+        return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }
 
     @ApiLog
@@ -59,7 +60,7 @@ public abstract class BaseController<T> {
         if (obj != null) {
             result = getBaseService().update(obj);
         }
-        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
+        return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }
 
     @ApiLog
@@ -70,8 +71,7 @@ public abstract class BaseController<T> {
         if (id != null) {
             result = getBaseService().delById(id);
         }
-        return result == 1 ? Result.success() : Result.failure(HttpStatus.INTERNAL_SERVER_ERROR, 1, "操作失败", Object.class);
+        return result == 1 ? Result.success() : Result.success(ResultCode.UNEXPECTED_RESULTS);
     }
-
 
 }

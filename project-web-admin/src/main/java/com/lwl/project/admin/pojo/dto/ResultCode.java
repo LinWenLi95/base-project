@@ -1,41 +1,84 @@
 package com.lwl.project.admin.pojo.dto;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 操作结果码
  */
-public class ResultCode {
+public enum ResultCode {
+    /**请求成功*/
+    OK(200,"请求成功"),
 
-    // 成功
-    public static final Integer OK = 200;
-    // 客户端错误
-    public static final Integer BAD_REQUEST = 400;
-    public static final Integer UNAUTHORIZED = 401;
-    public static final Integer FORBIDDEN = 403;
-    public static final Integer NOT_FOUND = 404;
-    public static final Integer METHOD_NOT_ALLOWED = 405;
-    public static final Integer UNSUPPORTED_MEDIA_TYPE = 415;
-    public static final Integer TOO_MANY_REQUESTS = 429;
-    // 服务端错误
-    public static final Integer INTERNAL_SERVER_ERROR = 500;
-    public static final Integer SERVICE_UNAVAILABLE = 503;
+    /* 客户端错误 */
+    /**坏请求（如，参数错误）*/
+    BAD_REQUEST(400,"坏请求"),
+    /**未授权*/
+    UNAUTHORIZED(401,"未授权"),
+    /**被禁止访问*/
+    FORBIDDEN(403,"被禁止访问"),
+    /**请求的资源不存在*/
+    NOT_FOUND(404,"请求的资源不存在"),
+    /**请求的方法不允许使用*/
+    METHOD_NOT_ALLOWED(405,"请求的方法不允许使用"),
+    /**不支持的媒体类型*/
+    UNSUPPORTED_MEDIA_TYPE(415,"不支持的媒体类型"),
+    /**请求过多*/
+    TOO_MANY_REQUESTS(429,"请求过多"),
 
-    public static final Map<Integer, String> ERROR_MSG_MAP = new HashMap<Integer, String>() {{
-        put(OK, "请求成功");
-        put(BAD_REQUEST, "坏请求（如，参数错误）");
-        put(UNAUTHORIZED, "未授权");
-        put(FORBIDDEN, "被禁止访问");
-        put(NOT_FOUND, "请求的资源不存在");
-        put(METHOD_NOT_ALLOWED, "请求方法对指定的资源不适用");
-        put(INTERNAL_SERVER_ERROR, "服务器内部错误");
-        put(SERVICE_UNAVAILABLE, " 服务当前无法处理请求");
-    }};
+    /* 服务端错误 */
+    /**服务器内部错误*/
+    INTERNAL_SERVER_ERROR(500,"服务器内部错误"),
+    /**暂停服务*/
+    SERVICE_UNAVAILABLE(503,"暂停服务"),
 
-    public static String getMsg(Integer code) {
-        return ERROR_MSG_MAP.get(code);
+    /* 自定义状态码(HttpStatus用来表示操作是否正确，ResultCode用来说明操作具体结果，如果和HttpStatus相同，ResultCode就完全没用的必要了) */
+    /**请求未报错,但得到预期外的结果*/
+    UNEXPECTED_RESULTS(10001,"请求未报错,但得到预期外的结果");
+
+    /**状态码*/
+    private Integer code;
+    /**原因*/
+    private String reasonPhrase;
+
+    ResultCode(Integer code,String reasonPhrase) {
+        this.code = code;
+        this.reasonPhrase = reasonPhrase;
     }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getReasonPhrase() {
+        return reasonPhrase;
+    }
+
+//    // 成功
+//    public static final Integer OK = 200;
+//    // 客户端错误
+//    public static final Integer BAD_REQUEST = 400;
+//    public static final Integer UNAUTHORIZED = 401;
+//    public static final Integer FORBIDDEN = 403;
+//    public static final Integer NOT_FOUND = 404;
+//    public static final Integer METHOD_NOT_ALLOWED = 405;
+//    public static final Integer UNSUPPORTED_MEDIA_TYPE = 415;
+//    public static final Integer TOO_MANY_REQUESTS = 429;
+//    // 服务端错误
+//    public static final Integer INTERNAL_SERVER_ERROR = 500;
+//    public static final Integer SERVICE_UNAVAILABLE = 503;
+//
+//    public static final Map<Integer, String> ERROR_MSG_MAP = new HashMap<Integer, String>() {{
+//        put(OK, "请求成功");
+//        put(BAD_REQUEST, "坏请求（如，参数错误）");
+//        put(UNAUTHORIZED, "未授权");
+//        put(FORBIDDEN, "被禁止访问");
+//        put(NOT_FOUND, "请求的资源不存在");
+//        put(METHOD_NOT_ALLOWED, "请求方法对指定的资源不适用");
+//        put(INTERNAL_SERVER_ERROR, "服务器内部错误");
+//        put(SERVICE_UNAVAILABLE, " 服务当前无法处理请求");
+//    }};
+//
+//    public static String getMsg(Integer code) {
+//        return ERROR_MSG_MAP.get(code);
+//    }
 
 
 //      200 请求成功，正确的请求返回正确的结果，如果不想细分正确的请求结果都可以直接返回200。
@@ -91,7 +134,7 @@ public class ResultCode {
 
 
 //        2XX （请求成功）表示成功处理了请求的状态代码。
-//        200   （成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。
+//        200   （请求成功）  服务器已成功处理了请求。 通常，这表示服务器提供了请求的网页。
 //        201   （已创建）  请求成功并且服务器创建了新的资源。
 //        202   （已接受）  服务器已接受请求，但尚未处理。
 //        203   （非授权信息）  服务器已成功处理了请求，但返回的信息可能来自另一来源。
@@ -111,7 +154,7 @@ public class ResultCode {
 //        4XX （请求错误）这些状态代码表示请求可能出错，妨碍了服务器的处理。
 //        400   （错误请求） 服务器不理解请求的语法。
 //        401   （未授权） 请求要求身份验证。 对于需要登录的网页，服务器可能返回此响应。
-//        403   （禁止） 服务器拒绝请求。
+//        403   （禁止访问） 服务器拒绝请求。
 //        404   （未找到） 服务器找不到请求的网页。
 //        405   （方法禁用） 禁用请求中指定的方法。
 //        406   （不接受） 无法使用请求的内容特性响应请求的网页。

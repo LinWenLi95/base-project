@@ -31,6 +31,7 @@ public class SysMenuController extends BaseController<SysMenu> {
         return sysMenuService;
     }
 
+    @Override
     @ApiOperation(value = "获取指定id的菜单实体")
     @GetMapping("/query/{id}")
     public ResponseEntity<Result<SysMenu>> queryOne(@PathVariable("id") Integer id) {
