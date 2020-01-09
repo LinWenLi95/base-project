@@ -1,5 +1,6 @@
 package com.lwl.project.admin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwl.project.admin.annotation.ApiLog;
 import com.lwl.project.admin.pojo.dto.Result;
@@ -24,12 +25,9 @@ public abstract class BaseController<T> {
                                                      @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                                      @ApiParam(value = "页码", example = "1")
                                                      @RequestParam(value = "currentPage", defaultValue = "1") Integer currentPage) {
-        int total = getBaseService().selectCountByMap(null);
-        Page<T> page = new Page<>(currentPage, pageSize, total);
-        if (total > 0) {
-            List<T> ts = getBaseService().selectByMap(null);
-            page.setRecords(ts);
-        }
+        IPage<T> tiPage = getBaseService().selectPage(currentPage, pageSize);
+        Page<T> page = new Page<>(currentPage, pageSize, tiPage.getTotal());
+        page.setRecords(tiPage.getRecords());
         return Result.success(page);
     }
 

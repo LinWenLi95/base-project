@@ -1,5 +1,7 @@
 package com.lwl.project.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,14 @@ import java.util.Map;
  * @param <T>
  */
 public interface BaseService<T> {
+
+    /**
+     * 分页查询（TODO 缺少条件）
+     * @param current
+     * @param size
+     * @return
+     */
+    IPage<T> selectPage(Integer current, Integer size);
 
     /**
      * 获取对象数量
