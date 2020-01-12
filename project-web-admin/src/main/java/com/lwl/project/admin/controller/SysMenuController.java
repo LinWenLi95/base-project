@@ -31,13 +31,13 @@ public class SysMenuController extends BaseController<SysMenu> {
         return sysMenuService;
     }
 
-    @Override
-    @ApiOperation(value = "获取指定id的菜单实体")
-    @GetMapping("/query/{id}")
-    public ResponseEntity<Result<SysMenu>> queryOne(@PathVariable("id") Integer id) {
-        SysMenu sysMenu = sysMenuService.selectById(id);
-        return Result.success(sysMenu) ;
-    }
+//    @Override
+//    @ApiOperation(value = "获取指定id的菜单实体")
+//    @GetMapping("/query/{id}")
+//    public ResponseEntity<Result<SysMenu>> queryOne(@PathVariable("id") Integer id) {
+//        SysMenu sysMenu = sysMenuService.selectById(id);
+//        return Result.success(sysMenu) ;
+//    }
 
     @ApiOperation(value = "获取菜单树列表")
     @GetMapping("/menuTrees")

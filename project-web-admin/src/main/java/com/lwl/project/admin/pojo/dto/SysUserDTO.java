@@ -11,7 +11,7 @@ public class SysUserDTO {
     /**用户名*/
     private String username;
     /**手机号*/
-    private String phone;
+    private String telephone;
     /**邮箱*/
     private String email;
     /**状态 0禁用,1启动*/

@@ -21,7 +21,7 @@ public class SysUser implements Serializable {
     /**密码，加密存储*/
     private String password;
     /**手机号*/
-    private String phone;
+    private String telephone;
     /**邮箱*/
     private String email;
     /**状态 0禁用,1启动*/

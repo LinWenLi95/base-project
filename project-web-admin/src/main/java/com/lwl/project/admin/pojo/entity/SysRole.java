@@ -14,10 +14,8 @@ public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /***/
+    /**角色id*/
     private Integer id;
-    /**父角色id（根角色id为0）*/
-    private Integer parentId;
     /**角色中文名称*/
     private String name;
     /**角色英文名称*/
