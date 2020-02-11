@@ -7,6 +7,7 @@ import com.lwl.project.admin.dao.SysMenuMapper;
 import com.lwl.project.admin.pojo.entity.SysMenu;
 import com.lwl.project.admin.pojo.vo.MenuTree;
 import com.lwl.project.admin.pojo.vo.MenuTreeNode;
+import com.lwl.project.admin.service.BaseService;
 import com.lwl.project.admin.service.SysMenuService;
 import com.lwl.project.admin.util.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu> implements SysMenuService {
+public class SysMenuServiceImpl implements SysMenuService {
 
     @Resource
     private SysMenuMapper sysMenuMapper;
@@ -60,6 +61,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu> implements SysM
 
     /**
      * 列表转树
+     *
      * @param treeNodes
      * @return
      */
@@ -85,8 +87,9 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenu> implements SysM
 
     /**
      * 获取指定节点的子节点列表
+     *
      * @param parentNodeId 父节点id
-     * @param nodes 节点列表
+     * @param nodes        节点列表
      * @return 子节点列表
      */
     public List<MenuTree> findChild(Integer parentNodeId, List<SysMenu> nodes) {

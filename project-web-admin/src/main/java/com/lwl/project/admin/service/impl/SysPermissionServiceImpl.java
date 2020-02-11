@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class SysPermissionServiceImpl extends BaseServiceImpl<SysPermission> implements SysPermissionService {
+public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Resource
     private SysPermissionMapper sysPermissionMapper;

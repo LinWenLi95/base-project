@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
+public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private SysUserMapper sysUserMapper;

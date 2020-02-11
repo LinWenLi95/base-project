@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 @Service
-public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService {
+public class SysRoleServiceImpl implements SysRoleService {
 
     @Resource
     private SysRoleMapper tbRoleMapper;
