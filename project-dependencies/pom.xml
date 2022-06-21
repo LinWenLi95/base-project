@@ -30,7 +30,7 @@
         <swagger.version>2.9.2</swagger.version>
         <commons-codec.version>1.13</commons-codec.version>
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
-        <mysql-connector.version>8.0.18</mysql-connector.version>
+        <mysql-connector.version>8.0.28</mysql-connector.version>
         <hikaricp.version>3.4.1</hikaricp.version>
     </properties>
 
