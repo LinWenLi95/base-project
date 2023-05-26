@@ -22,7 +22,7 @@
         <java.version>1.8</java.version>
 
         <!-- 统一的依赖管理 -->
-        <springboot.version>2.2.1.RELEASE</springboot.version>
+        <springboot.version>2.5.15</springboot.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <lombok.version>1.18.10</lombok.version>
